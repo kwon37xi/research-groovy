@@ -1,2 +1,3 @@
-rootProject.name = 'research-java7'
+rootProject.name = 'research-groovy'
 include 'programming-groovy-2'
+include 'spock'
