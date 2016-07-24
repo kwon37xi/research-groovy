@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter
 
 /**
  * <a href="http://spockframework.github.io/spock/docs/1.0/spock_primer.html">Spock Primer</a> 실습
+ * Spock은 <code>@CompileStatic</code> 과 조합할 수 없는 것으로 보임.
+ * <code>Target method for method call expression hasn't been set</code>라는 에러 발생.
  */
 class MyFirstSpecification extends Specification {
 
