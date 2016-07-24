@@ -136,4 +136,28 @@ class MyFirstSpecification extends Specification {
         5 | 1 | 5
         3 | 9 | 9
     }
+
+    def "offered PC matches preferred configuration"() {
+        setup: "shop 객체를 만든다"
+        def shop = new ComputerShop()
+
+        when: "PC를 구매하면"
+        def pc = shop.buyPc()
+
+        then: "특정 조건을 만족해야 한다."
+//        pc.vendor == "Sunny"
+//        pc.clockRate >= 2333
+//        pc.ram >= 4096
+//        pc.os == "Linux"
+        matchesPreferedConfiguration(pc)
+    }
+
+    // assert helper method는 각 조건에 assert 문을 사용하고, void 를 return해야 한다.
+    // 헬퍼 메소드를 남용하지 말 것. Feature 메소드들 간의 커플링이 높아진다.
+    void matchesPreferedConfiguration(pc) {
+        assert pc.vendor == "Sunny"
+        assert pc.clockRate >= 2333
+        assert pc.ram >= 4096
+        assert pc.os == "Linux"
+    }
 }
