@@ -1,3 +1,6 @@
+import research.spock.ComputerShop
+import research.spock.Publisher
+import research.spock.Subscriber
 import spock.lang.Shared
 import spock.lang.Specification
 
