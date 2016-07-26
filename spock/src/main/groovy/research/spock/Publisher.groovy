@@ -9,7 +9,7 @@ class Publisher {
         subscribers << subscriber
     }
 
-    void fire(String message) {
+    void send(String message) {
         subscribers.each { subscriber ->
             subscriber.receive(message)
         }

@@ -92,7 +92,7 @@ class MyFirstSpecification extends Specification {
         publisher.add(subscriber2)
 
         when:
-        publisher.fire("event")
+        publisher.send("event")
 
         then:
         1 * subscriber1.receive("event")
