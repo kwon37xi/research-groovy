@@ -178,4 +178,54 @@ class PublishSpec extends Specification {
         then:
         1 * subscriber.receive("goodbye")
      */
+
+    /*
+        === Stub ===
+        * 호출 횟수에 상관없이 응답 혹은 예외 발생시키기
+        * stub 용도로만 사용될때는 setup: 그게 아니면 when:, then: 모두에서 선언가능.
+
+        subscriber.receive(_) >> "ok" // 어떤 인자로든 subscriber.receive()가 호출되면 "ok" 응답.
+     */
+
+    def "stub any params"() {
+        subscriber.receive(_) >> "ok"
+
+        when:
+        def hello = subscriber.receive("hello")
+        def world = subscriber.receive("world")
+
+        then:
+        hello == "ok"
+        world == "ok"
+    }
+
+    def "stub returns per params"() {
+        subscriber.receive("message1") >> "ok"
+        subscriber.receive("message2") >> "fail"
+
+        when:
+        def hello = subscriber.receive("message1")
+        def world = subscriber.receive("message2")
+
+        then:
+        hello == "ok"
+        world == "fail"
+    }
+
+    def "stub return sequence of values"() {
+        // >>> 연산자로 순서대로 리턴할 값 지정
+        subscriber.receive(_) >>> ["ok", "error", "error", "ok"]
+
+        when:
+        def result1 = subscriber.receive("message1")
+        def result2 = subscriber.receive("message2")
+        def result3 = subscriber.receive("message3")
+        def result4 = subscriber.receive("message4")
+
+        then:
+        result1 == "ok"
+        result2 == "error"
+        result3 == "error"
+        result4 == "ok"
+    }
 }
