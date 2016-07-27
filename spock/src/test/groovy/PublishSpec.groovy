@@ -1,3 +1,4 @@
+import org.spockframework.mock.MockDetector
 import research.spock.Publisher
 import research.spock.Subscriber
 import spock.lang.Specification
@@ -227,5 +228,122 @@ class PublishSpec extends Specification {
         result2 == "error"
         result3 == "error"
         result4 == "ok"
+    }
+
+    def "computing return values"() {
+        // closure 에서 인자를 받아서 처리하고 리턴
+//        subscriber.receive(_) >> { args -> args[0].size() > 3 ? "ok" : "fail"}
+        // closure 에 파라미터를 명시할 수도 있음
+        // IMockInvocation 에 있는 모든 메소드를 closure 안에서 호출 가능
+        subscriber.receive(_) >> { String message -> message.size() > 3 ? "ok" : "fail" }
+
+        when:
+        def okResult = subscriber.receive("long message")
+        def failResult = subscriber.receive("!!")
+
+        then:
+        okResult == "ok"
+        failResult == "fail"
+    }
+
+    def "throws exception"() {
+        subscriber.receive(_) >> { throw new IllegalStateException("ouch")}
+
+        when:
+        subscriber.receive("something")
+
+        then:
+        thrown(IllegalStateException)
+    }
+
+    /*
+       chaining responses
+
+       subscriber.receive(_) >>> ["ok", "fail", "ok"] >> { throw new InternalError() } >> "ok"
+    */
+
+    /*
+        Combining mocking and stubbing : Mocking과 Stubbing은 분할해서 선언할 수 없다.
+
+        1 * subscriber.receive("message1") >> "ok"
+        1 * subscriber.receive("message2") >> "fail"
+     */
+
+    // Stub() 은 stub 역할만 하는 객체 생성. Mock 처럼 호출 행위에 대한 검증 안됨.
+    def "Stub"() {
+//        Subscriber subscriberStub = Stub()
+//        subscriberStub.receive("hello") >> "world"
+
+// 혹은
+        Subscriber subscriberStub = Stub() {
+            receive("hello") >> "world"
+        }
+
+        when:
+        def result = subscriberStub.receive("hello")
+
+        then:
+//        1 * subscriberStub.receive("hello") >> "world" // mock 검증은 할 수 없다.
+        result == "world"
+    }
+
+    /*
+        Spy - 사용 자제
+
+        실제 객체에 기반한다. 인터페이스로 객체를 생성할 수 없다.
+        스파이에 대한 메소드 호출은 자동으로 실제 객체로 전달된다. 그리고 실제 객체의 리턴값을 리턴한다.
+
+        1 * subscriber.receive(_)
+
+        스파이를 통해 호출자와 실제 객체 사이의 정보 전달을 살펴볼 수 있다.
+        또한 Spy객체를 Stub 하면 실제 객체의 메소드를 호출하지 않고 가로채어 특정 행위나 값 리턴을 하게 할 수 있다.
+
+        subscriber.receive(_) >> "ok" // 실제 객체의 메소드는 호출되지 않음.
+
+        실제 메소드롤 호출하면서 결과는 바꿔치기하기 : callRealMethod() // 파라미터를 전달할 필요가 없음. 자동으로 됨.
+
+        subscriber.receive(_) >> { String message -> callRealMethod(); message.size() > 3 ? "ok" : "fail" }
+
+        callRealMethodWithArgs("changed message") 를 사용해 파라미터 바꿔치기도 가능.
+     */
+
+    /*
+        Partial Mock - 사용자제
+        def persister = Spy(MessagePersister) {
+          isPersistable(_) >> true // Mock
+        }
+
+        when:
+        persister.receive("msg")
+
+        then:
+        // demand a call on the same object
+        1 * persister.persist("msg")
+     */
+
+    /*
+      Groovy Mock : Groovy 로 작성된 객체 전용 Mock
+        GroovyMock(), GroovyStub(), GroovySpy()
+     */
+
+    /*
+     특정 객체게 Mock 인지 판별
+
+        // Mock 객체에 대한 정보 수집도 가능.
+        def mock = detector.asMock(list2)
+
+        expect:
+        mock.name == "list2"
+        mock.type == List
+        mock.nature == MockNature.MOCK
+      */
+    def "Mock Detector"() {
+        def detector = new MockDetector()
+        def list1 = []
+        def list2 = Mock(List)
+
+        expect:
+        !detector.isMock(list1)
+        detector.isMock(list2)
     }
 }
