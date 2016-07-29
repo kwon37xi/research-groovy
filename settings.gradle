@@ -1,3 +1,4 @@
 rootProject.name = 'research-groovy'
 include 'programming-groovy-2'
 include 'spock'
+include 'tutorial-point-groovy'
