@@ -11,9 +11,37 @@ class StringExample {
 
         // String repetition
 
-        String a = "Hello"
+        String a = "Hello World"
         println(a * 3)
         println("Hello" * 3)
 
+        println("[" + a.center(30) + "]")
+
+        a.eachMatch(".") {
+            ch -> println ch
+        }
+
+        println(a.matches("Hello"))
+        println(a.matches("Hello(.*)"))
+
+        println(a.minus("World"))
+        println(a.minus("Hello"))
+
+        println(a.next())
+
+        println("======= padding ======")
+        println(a.padLeft(14))
+        println(a.padLeft(16))
+        println(a.padLeft(16, '*'))
+        println(a.padLeft(14, '*'))
+
+
+        println(a.padRight(14));
+        println(a.padRight(16));
+        println(a.padRight(16,'*'));
+        println(a.padRight(14,'*'));
+
+        println(a.plus("세상아"))
+        println(a.plus("세상아 또 다시한 번"))
     }
 }
