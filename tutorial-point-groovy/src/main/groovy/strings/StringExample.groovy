@@ -43,5 +43,10 @@ class StringExample {
 
         println(a.plus("세상아"))
         println(a.plus("세상아 또 다시한 번"))
+
+        println(a.previous()) // --a 연산시 호출됨.
+        println(--a) // a 자체의 레퍼런스가 변경됨.
+        println(++a)
+        println(a.reverse())
     }
 }
