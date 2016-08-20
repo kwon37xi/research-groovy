@@ -32,7 +32,6 @@ stocks.each { key, value ->
     company = key
     price = value
     println quote
-
 }
 
 quote = "-- with self-contained closure : Today ${-> company} stock closed at ${-> price}"
@@ -42,4 +41,3 @@ stocks.each { key, value ->
     println quote
 
 }
-
