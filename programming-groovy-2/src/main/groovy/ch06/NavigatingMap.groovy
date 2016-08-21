@@ -28,3 +28,27 @@ selected = langs.findAll { language, author ->
 selected.each { key, value ->
     println "Found $key written by $value"
 }
+
+print "Does any language name have a nonalphabetic character? "
+println langs.any { language, author -> language =~ "[^A-Za-z]" }
+
+print "Do all language names have a nonaphabetic character? "
+println langs.every { language, author -> language =~ "[^A-Za-z]"}
+
+friends = [
+        briang: 'Brian Goetz',
+        brians: 'Brian Sletten',
+        davidb: 'David Bock',
+        dividg: 'David Geary',
+        scottd: 'Scott Davis',
+        scottl: 'Scott Leberknight',
+        suarth: 'Stuart halloway'
+]
+
+groupByFirstName = friends.groupBy {
+    it.value.split(' ')[0]
+} // 새로운 맵이 생긴다. Map key -> firstname, Map value -> 이름
+
+groupByFirstName.each { firstName, buddies -> // key , value
+    println "$firstName : ${buddies.collect { key, fullName -> fullName }.join(', ')}"
+}
