@@ -130,7 +130,7 @@ class PublishSpec extends Specification {
 
     /**
      * Argument Capture for Mock.
-     * Stub 일 경우에는 subscriber.receive(_) { args -> capture = args[0]; return "return value" }
+     * Stub 일 경우에는 subscriber.receive(_) >> { arg -> capture = arg; return "return value" }
      */
     def "argument capture"() {
         def captured;
