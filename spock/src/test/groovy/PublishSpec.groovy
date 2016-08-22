@@ -128,6 +128,22 @@ class PublishSpec extends Specification {
          */
     }
 
+    /**
+     * Argument Capture for Mock.
+     * Stub 일 경우에는 subscriber.receive(_) { args -> capture = args[0]; return "return value" }
+     */
+    def "argument capture"() {
+        def captured;
+
+        when:
+        publisher.send("hello world")
+
+        then:
+        1 * subscriber.receive({captured = it; true})
+        captured instanceof String
+        captured == "hello world"
+    }
+
     // then: 에 있는 모의 객체 행위 선언은 코드 호출시 자동으로 when: 보다 먼저 실행된다.
     // 이때 then: 에서 변수를 선언해 사용하면 해당 변수는 모의 객체가 아니라서 올바로 인식이 안된다.
 
