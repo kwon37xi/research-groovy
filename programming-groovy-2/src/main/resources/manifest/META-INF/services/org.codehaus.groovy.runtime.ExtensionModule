@@ -1,0 +1,4 @@
+moduleName=stock-price-module
+moduleVersion=1.0-test
+extensionClasses=ch07.PriceExtension
+staticExtensionClasses=ch07.PriceStaticExtension
