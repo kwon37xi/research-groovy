@@ -1,4 +1,5 @@
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.13'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
     compile files('localdeps/priceExtensions.jar')
 }
