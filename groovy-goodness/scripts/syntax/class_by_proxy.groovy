@@ -3,25 +3,20 @@ class User {
     String email
     String password
 
-    Object getProperty(String propertyName) {
-        println "user getProperty"
-        "mrhaki"
-    }
-        String displayName() {
+    String displayName() {
         name
     }
 }
 
 
-
 class UserProxy extends groovy.util.Proxy {
     List fields
 
-    // override getProperty
     Object getProperty(String propertyName) {
-        def adt = super.getProperty("adaptee")
-        if (prepertyName in fields) {
-            adt.getProperty(propertyName)
+        // 일부 환경에서 propertyName in fields가 다시 getProperty("fields")를 호출하여 StackOverflow를 냈음.
+        // fields.contains(propertyName)로 변경하니까 됐음.
+        getAdaptee().getProperty(propertyName)
+        if (propertyName in fields) {
         } else {
             throw new MissingPropertyException("Unknown property ${propertyName}")
         }
@@ -32,11 +27,8 @@ def user = new User(name: 'mrhaki', email: 'private@localhost', password: 'secre
 assert 'mrhaki' == user.name
 
 def userProxy = new UserProxy(fields: ['name']).wrap(user)
-println user.dump()
-println "just before userProxy.name"
 assert 'mrhaki' == userProxy.name
 
-println 'another next'
 try {
     userProxy.email
     assert false
