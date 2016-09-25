@@ -1,5 +1,3 @@
-import javax.xml.crypto.dsig.Transform
-
 // traits since 2.3
 // trait의 순서가 체인의 순서를 결정한다. 마지막 선언된 것이 제일 처음 호출된다.
 // 즉, 오른쪽 -> 왼쪽 순서로 호출된다.
