@@ -9,6 +9,5 @@ data.each { userData ->
     }
 }
 
-
 assert new File('/tmp/1.txt').text == 'User mrhaki lives in The Netherlands'
 assert new File('/tmp/2.txt').text == 'User hubert lives in The Netherlands'
