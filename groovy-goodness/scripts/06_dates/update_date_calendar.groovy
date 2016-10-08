@@ -1,5 +1,6 @@
 // Date/Calendar 객체를 Map으로 update해서 새로운 결과 객체를 만들어낼 수 있다.
 // Map 에 지정안한 값은 변경없이 유지한다.
+// updated() 는 deprecated 되었다. copyWith 사용할 것.
 
 import static java.util.Calendar.*
 
