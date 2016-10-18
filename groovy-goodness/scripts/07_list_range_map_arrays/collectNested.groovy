@@ -1,4 +1,4 @@
-// collecteNested : 내포된 상태 그대로 transform 수행.
+// collecteNested : 내포된 상태 그대로 transform 수행. collectAll 의 신규버전.
 def list = [10, 20, [1, 2, [25, 50]], ['Groovy']]
 
 assert list.collectNested { it * 2 } == [20, 40, [2, 4, [50, 100]], ['GroovyGroovy']]
