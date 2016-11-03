@@ -1,5 +1,3 @@
-package ch10_sql
-
 import groovy.sql.*
 
 def username = 'root', password = 'root', database = 'groovy', server = 'localhost'
