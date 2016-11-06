@@ -1,3 +1,4 @@
+package ch11_files_readers_writers_urls
 
 def file1 = new File('/tmp/groovy1.txt')
 def file2 = new File('/tmp/groovy2.txt')

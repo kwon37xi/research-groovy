@@ -1,3 +1,5 @@
+package ch11_files_readers_writers_urls
+
 import groovy.io.FileType
 
 (1..3).each {
