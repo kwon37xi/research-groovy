@@ -1,3 +1,11 @@
+sourceSets {
+    groovydoc {
+        resources {
+            srcDir 'src/groovydoc'
+        }
+    }
+}
+
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.13'
     compile 'commons-lang:commons-lang:2.5'
@@ -10,4 +18,23 @@ dependencies {
 
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+groovydoc {
+    docTitle = "Sample GroovyDoc"
+    windowTitle = "Example customizing GroovyDoc"
+
+    header = '''
+        <img src="http://www.mrhaki.com/images/haki-logo-black-64.png"/>
+        <h2>Sample project</h2>
+'''.stripIndent()
+
+    footer = """
+        <div class="custom-footer">
+            Generated on: ${new Date().format('yyyy-MM-dd HH:mm:ss')}
+        </div>
+""".stripIndent()
+
+    // classpath 순서 변경
+    classpath = sourceSets.groovydoc.output + classpath
 }

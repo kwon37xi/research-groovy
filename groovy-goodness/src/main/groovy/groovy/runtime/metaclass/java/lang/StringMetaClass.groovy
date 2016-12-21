@@ -1,5 +1,10 @@
 package groovy.runtime.metaclass.java.lang
 
+/**
+ * String meta class example
+ *
+ * @autor Kwon37xi [kwon37xi@gmail.com]
+ */
 class StringMetaClass extends DelegatingMetaClass {
 
     StringMetaClass(MetaClass metaClass) {
