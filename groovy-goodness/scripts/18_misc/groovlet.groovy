@@ -3,6 +3,8 @@ Groovlet
 
 groovy servlet
 
+여기서 바인딩된 객체들은 http://docs.groovy-lang.org/latest/html/api/groovy/servlet/ServletBinding.html 참조
+
 * `request` : `HttpServletRequest`
 * `response` : `HttpServletRequest`
 * `session`
@@ -10,7 +12,7 @@ groovy servlet
 * `out`
 * `sout`
 * `html`
-
+* `json`
  */
 
 @Grab(group = 'org.mortbay.jetty', module = 'jetty-embedded', version = '6.1.14')
