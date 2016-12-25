@@ -59,7 +59,8 @@ mbeans.invoke(webBean, "setContextAttribute", ['groovy', Boolean.TRUE] as Object
 mbeans.setAttribute(webBean, new Attribute("distributable", Boolean.TRUE))
 assert (mbeans.getAttribute(webBean, "distributable")) == true
 
-def gmbeans = mbeans.queryNames(new ObjectName('org.eclipse.jetty.webapp:*'), null)
+// org.eclipse.jetty.webapp:* 에서 변경
+def gmbeans = mbeans.queryNames(new ObjectName('org.eclipse.jetty.webapp:type=webappcontext,*'), null)
         .inject([]) { List result, javax.management.ObjectName name ->
             result << new GroovyMBean(mbeans, name)
         }
