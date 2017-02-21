@@ -3,6 +3,7 @@ import research.spock.Publisher
 import research.spock.Subscriber
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Subject
 
 import java.time.format.DateTimeFormatter
 
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter
  */
 class MyFirstSpecification extends Specification {
 
+    @Subject
     def obj = new Random() // 각각의 테스트 메소드(feature method)간에 공유되지 않고 매번 새로 생성됨
     @Shared
     def formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss") // 한 번만 생성되고 모든 테스트 메소드간에 공유됨.
